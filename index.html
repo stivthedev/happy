@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$HAPPY — Soft Meme Sanctuary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="bg-bubbles" aria-hidden="true"></div>
+
+  <header class="hero">
+
+    <nav class="topbar">
+      <span class="logo-text">$HAPPY</span>
+      <a class="btn btn-twitter" href="#" aria-label="Twitter">
+        <span>Follow on Twitter</span>
+      </a>
+    </nav>
+    <div class="music-toggle-wrap">
+      <button class="music-toggle" id="music-toggle" type="button">Play music</button>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1>Stay happy no matter what.</h1>
+        <p class="sub">
+          $HAPPY is a soft, pink sanctuary for the meme that keeps our spirits bright —
+          through crypto chaos, through the noise, through it all.
+        </p>
+        <div class="cta-row">
+          <button class="btn">Join the Happy Vibe</button>
+          <a class="btn btn-ghost" href="whitepaper.html">Read the Happy Oath</a>
+        </div>
+        <div class="dance-toggle-wrap">
+          <button class="btn dance-toggle" id="dance-toggle" type="button">I am happy</button>
+        </div>
+
+      </div>
+      <div class="hero-card hero-logo">
+        <div class=""></div>
+        <img src="logo1.png" alt="$HAPPY logo" />
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel panel-compact" id="gallery">
+      <div class="panel-head">
+        <h2>Happy Image Story</h2>
+        <p>Short, soft chapters of the $HAPPY story.</p>
+      </div>
+
+      <section class="image-section image-compact">
+        <img src="images/Mmmmmm.jpeg" alt="Happy meme 1" />
+        <div>
+          <h3>Mmmmmm</h3>
+          <p>The first taste of peace — happiness can be simple.</p>
+        </div>
+      </section>
+
+      <section class="image-section image-compact reverse">
+        <img src="images/_%20(5).jpeg" alt="Happy meme 2" />
+        <div>
+          <h3>Soft Smile</h3>
+          <p>When markets shake, we keep a calm smile.</p>
+        </div>
+      </section>
+
+      <section class="image-section image-compact">
+        <img src="images/_%20(6).jpeg" alt="Happy meme 3" />
+        <div>
+          <h3>Bubble Bliss</h3>
+          <p>Above the noise, safe in our pink bubble.</p>
+        </div>
+      </section>
+
+      <section class="image-section image-compact reverse">
+        <img src="images/_%20(7).jpeg" alt="Happy meme 4" />
+        <div>
+          <h3>Warms the Room</h3>
+          <p>Even in hard times, we bring warmth.</p>
+        </div>
+      </section>
+
+      <section class="image-section image-compact">
+        <img src="images/_%20(8).jpeg" alt="Happy meme 5" />
+        <div>
+          <h3>Pink Orbit</h3>
+          <p>We orbit joy and return to our soft core.</p>
+        </div>
+      </section>
+
+      <section class="image-section image-compact reverse">
+        <img src="images/_%20(9).jpeg" alt="Happy meme 6" />
+        <div>
+          <h3>Forever Happy</h3>
+          <p>Whatever happens, $HAPPY stays bright.</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Made with soft hearts for the $HAPPY community.</p>
+  </footer>
+
+  <div class="happy-banner" aria-hidden="true">BE HAPPY</div>
+  <div class="confetti" aria-hidden="true"></div>
+
+  <audio id="bg-music" src="happy-happy-happy-cat.mp3" loop autoplay></audio>
+  <script>
+    const music = document.getElementById('bg-music');
+    const toggle = document.getElementById('music-toggle');
+    const danceToggle = document.getElementById('dance-toggle');
+    const bodyEl = document.body;
+    const confetti = document.querySelector('.confetti');
+    const confettiColors = ['#ff74b1', '#ffc9dd', '#ff93c0', '#fff1f6', '#cc3d7a'];
+
+    const setLabel = () => {
+      toggle.textContent = music.paused ? 'Play music' : 'Pause music';
+    };
+
+    toggle.addEventListener('click', async () => {
+      try {
+        if (music.paused) {
+          await music.play();
+        } else {
+          music.pause();
+        }
+        setLabel();
+      } catch (err) {
+        setLabel();
+      }
+    });
+
+    const tryAutoPlay = async () => {
+      try {
+        await music.play();
+      } catch (err) {
+        // Autoplay may be blocked; will retry after first user gesture.
+      } finally {
+        setLabel();
+      }
+    };
+
+    const enableAutoPlayOnGesture = () => {
+      tryAutoPlay();
+      window.removeEventListener('pointerdown', enableAutoPlayOnGesture);
+      window.removeEventListener('keydown', enableAutoPlayOnGesture);
+    };
+
+    window.addEventListener('pointerdown', enableAutoPlayOnGesture, { once: true });
+    window.addEventListener('keydown', enableAutoPlayOnGesture, { once: true });
+
+    const launchConfetti = () => {
+      confetti.innerHTML = '';
+      const pieces = 40;
+      for (let i = 0; i < pieces; i += 1) {
+        const piece = document.createElement('span');
+        piece.className = 'confetti-piece';
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.background = confettiColors[i % confettiColors.length];
+        piece.style.animationDelay = `${Math.random() * 0.4}s`;
+        piece.style.animationDuration = `${1.6 + Math.random()}s`;
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+        confetti.appendChild(piece);
+      }
+    };
+
+    danceToggle.addEventListener('click', () => {
+      if (bodyEl.classList.contains('dancing')) {
+        bodyEl.classList.remove('dancing');
+        return;
+      }
+      launchConfetti();
+      bodyEl.classList.add('dancing');
+      window.setTimeout(() => bodyEl.classList.remove('dancing'), 5000);
+    });
+
+    tryAutoPlay();
+    setLabel();
+  </script>
+</body>
+
+</html>
